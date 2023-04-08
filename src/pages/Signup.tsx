@@ -6,16 +6,17 @@ import FormButton from "../components/FormButton";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import SocialButton from "../components/SocialButton";
 
-interface LoginScreenProps {
+interface SignupScreenProps {
   navigation: {
     navigate: (screen: string, params?: object) => void;
   };
 }
 
-const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
+const SignupScreen: FC<SignupScreenProps> = ({ navigation }) => {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState();
 
   useEffect(() => {
     const loadFonts = async () => {
@@ -35,12 +36,7 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("../../assets/rn-social-logo.png")}
-        style={styles.logo}
-      />
-
-      <Text style={styles.text}>Social App</Text>
+      <Text style={styles.text}>Create an account</Text>
 
       <FormInput
         placeholderText="Email"
@@ -58,17 +54,37 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
         onChangeText={(userPassword) => setPassword(userPassword)}
       />
 
-      <FormButton
-        buttonTitle="Sign In"
-        onPress={() => alert("Sign In Clicked")}
+      <FormInput
+        placeholderText="Confirm Password"
+        iconType="lock"
+        secureTextEntry={true}
+        onChangeText={(userPassword) => setPassword(userPassword)}
       />
 
-      <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
-        <Text style={styles.navButtonText}>Forgot Password?</Text>
-      </TouchableOpacity>
+      <FormButton
+        buttonTitle="Sign Up"
+        onPress={() => alert("Sign Up Clicked")}
+      />
+
+      <View style={styles.textPrivate}>
+        <Text style={styles.color_textPrivate}>
+          By registering, you confirm that you accept our
+        </Text>
+        <TouchableOpacity onPress={() => alert("Terms Clicked!")}>
+          <Text style={[styles.color_textPrivate, { color: "#e88832" }]}>
+            Terms of service
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.color_textPrivate}> and </Text>
+        <TouchableOpacity onPress={() => alert("Policy Clicked!")}>
+          <Text style={[styles.color_textPrivate, { color: "#e88832" }]}>
+            Privacy Policy
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       <SocialButton
-        buttonTitle="Sign In with Facebook"
+        buttonTitle="Sign Up with Facebook"
         btnType="facebook"
         color="#4867aa"
         backgroundColor="#e6eaf4"
@@ -76,7 +92,7 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
       />
 
       <SocialButton
-        buttonTitle="Sign In with Google"
+        buttonTitle="Sign Up with Google"
         btnType="google"
         color="#de4d41"
         backgroundColor="#f5e7ea"
@@ -84,28 +100,25 @@ const LoginScreen: FC<LoginScreenProps> = ({ navigation }) => {
       />
 
       <TouchableOpacity
-        style={styles.forgotButton}
-        onPress={() => navigation.navigate("Signup")}
+        style={styles.navButton}
+        onPress={() => navigation.navigate("Login")}
       >
-        <Text style={styles.navButtonText}>
-          Don't have an acount? Create here
-        </Text>
+        <Text style={styles.navButtonText}>Have an account? Sign In</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: "#f9fafd",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
-  logo: { height: 150, width: 150, resizeMode: "cover" },
   text: {
     fontFamily: "Kufam-SemiBoldItalic",
     fontSize: 28,
@@ -115,13 +128,22 @@ const styles = StyleSheet.create({
   navButton: {
     marginTop: 15,
   },
-  forgotButton: {
-    marginVertical: 35,
-  },
   navButtonText: {
     fontSize: 18,
     fontWeight: "500",
     color: "#2e64e5",
     fontFamily: "Lato-Regular",
+  },
+  textPrivate: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginVertical: 35,
+    justifyContent: "center",
+  },
+  color_textPrivate: {
+    fontSize: 13,
+    fontWeight: "400",
+    fontFamily: "Lato-Regular",
+    color: "grey",
   },
 });
