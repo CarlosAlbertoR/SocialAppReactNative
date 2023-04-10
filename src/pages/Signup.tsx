@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     color: "#051d5f",
   },
   navButton: {
-    marginTop: 15,
+    marginVertical: 35,
   },
   navButtonText: {
     fontSize: 18,
