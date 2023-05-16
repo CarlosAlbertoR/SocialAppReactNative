@@ -17,4 +17,5 @@ web-build/
 .metro-health-check*
 
 # Locks
+package-lock.json
 yarn.lock
